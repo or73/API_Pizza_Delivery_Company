@@ -158,8 +158,7 @@ const orderPost = data => {
 				return userServMsg;
 			}
 		} else {
-			poValMsg.message += ' [ purchaseOrders.orderPost]';
-			return poValMsg;
+			return errorTemplate( 'EEXIST', 'Purchase Order already exists [ purchaseOrders.orderPost ]' );
 		}
 	} else {
 		return errorTemplate('EINVAL', 'Missing or invalid required fields [ purchaseOrders.orderPost]');
