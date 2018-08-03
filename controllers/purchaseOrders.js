@@ -4,7 +4,7 @@
 //
 //
 // // Dependencies
-const apiKey            = 'key-ebf57d774c68281db08ac0619bb4e6b5';
+const apiKey            = 'This key can not be shared, use your own key'
 const domain            = 'sandbox6aa929989dab4b048c7157ab9bf491f2.mailgun.org';
 
 const https         = require( 'https' );
