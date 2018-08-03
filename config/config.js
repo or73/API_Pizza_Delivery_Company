@@ -24,8 +24,13 @@ config.stripe       = {
 
 
 config.mailgun      = {
+<<<<<<< HEAD
 	apiKey  : 'This key can not be shared, use your own key',   // This key can not be shared, use your own key
 	domain  : 'This data can not be shared, use your own domain' // This data can not be shared, use your own domain
+=======
+	apiKey  : 'This key can not be shared, use your own key',
+	domain  : 'This data can not be shared, use your own domain',
+>>>>>>> origin/master
 };
 
 

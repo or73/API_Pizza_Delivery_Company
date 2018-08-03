@@ -4,6 +4,7 @@
 //
 //
 // // Dependencies
+<<<<<<< HEAD
 
 const https         = require( 'https' );
 const queryString   = require( 'querystring' );
@@ -12,6 +13,15 @@ const config         = require( '../config/config' );
 const apiKey        = config.mailgun.apiKey;
 const domain        = config.mailgun.domain;
 const stripe        = require( 'stripe' )( config.stripe.secret );
+=======
+const https         = require( 'https' );
+const queryString   = require( 'querystring' );
+
+
+const config        = require( '../config/config' );
+const apiKey        = config.mailgun.apiKey;
+const domain        = config.mailgun.domain;
+>>>>>>> origin/master
 
 const {
 	createHash,
