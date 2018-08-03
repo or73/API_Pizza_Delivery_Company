@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="JavaScriptLibraryMappings">
+    <file url="file://$PROJECT_DIR$" libraries="{WK2End/node_modules}" />
+    <file url="PROJECT" libraries="{@types/angular, @types/babel-code-frame, @types/babel-core, @types/babel-generator, @types/babel-plugin-syntax-jsx, @types/babel-template, @types/babel-traverse, @types/babel-types, @types/babel-webpack-plugin, @types/babelify, @types/consolidate, @types/expect, @types/express, @types/lodash, @types/mongodb, @types/socket.io, @types/supertest, Dojo-1.8.3, Knockout-2.2.1, Modernizr-2.6.2, MooTools-1.4.5, Prototype-1.7.1, WK2End/node_modules, YUI-3.10.0, bootstrap, jQuery UI-1.10.2, jQuery-2.0.0, jquery, jquery-3.2.1.slim, jquery-3.3.1, popper}" />
+    <includedPredefinedLibrary name="HTTP Response Handler" />
+    <includedPredefinedLibrary name="Node.js Core" />
+  </component>
+</project>

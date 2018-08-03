@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="WEB_MODULE" version="4">
+  <component name="NewModuleRootManager">
+    <content url="file://$MODULE_DIR$">
+      <excludeFolder url="file://$MODULE_DIR$/.tmp" />
+      <excludeFolder url="file://$MODULE_DIR$/temp" />
+      <excludeFolder url="file://$MODULE_DIR$/tmp" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="@types/angular" level="application" />
+    <orderEntry type="library" name="@types/babel-code-frame" level="application" />
+    <orderEntry type="library" name="@types/babel-core" level="application" />
+    <orderEntry type="library" name="@types/babel-generator" level="application" />
+    <orderEntry type="library" name="@types/babel-plugin-syntax-jsx" level="application" />
+    <orderEntry type="library" name="@types/babel-template" level="application" />
+    <orderEntry type="library" name="@types/babel-traverse" level="application" />
+    <orderEntry type="library" name="@types/babel-types" level="application" />
+    <orderEntry type="library" name="@types/babel-webpack-plugin" level="application" />
+    <orderEntry type="library" name="@types/babelify" level="application" />
+    <orderEntry type="library" name="@types/consolidate" level="application" />
+    <orderEntry type="library" name="@types/expect" level="application" />
+    <orderEntry type="library" name="@types/express" level="application" />
+    <orderEntry type="library" name="@types/lodash" level="application" />
+    <orderEntry type="library" name="@types/mongodb" level="application" />
+    <orderEntry type="library" name="@types/socket.io" level="application" />
+    <orderEntry type="library" name="@types/supertest" level="application" />
+    <orderEntry type="library" name="bootstrap" level="application" />
+    <orderEntry type="library" name="Dojo-1.8.3" level="application" />
+    <orderEntry type="library" name="jquery" level="application" />
+    <orderEntry type="library" name="jQuery UI-1.10.2" level="application" />
+    <orderEntry type="library" name="jQuery-2.0.0" level="application" />
+    <orderEntry type="library" name="jquery-3.2.1.slim" level="application" />
+    <orderEntry type="library" name="jquery-3.3.1" level="application" />
+    <orderEntry type="library" name="Knockout-2.2.1" level="application" />
+    <orderEntry type="library" name="Modernizr-2.6.2" level="application" />
+    <orderEntry type="library" name="MooTools-1.4.5" level="application" />
+    <orderEntry type="library" name="popper" level="application" />
+    <orderEntry type="library" name="Prototype-1.7.1" level="application" />
+    <orderEntry type="library" name="YUI-3.10.0" level="application" />
+  </component>
+</module>
