@@ -1,4 +1,4 @@
-#API for a Pizza-Delivery Company
+API for a Pizza-Delivery Company
 =
 ---
 
@@ -257,48 +257,83 @@ Stores information of required token
 # Orders-Methods 
 ## order-POST
 **(Request that the resource at the URI do something with the provided entity)**   
+### General Information
+    Required data: headers → token
+                   queryStringObject → email
+    Optional data: None
+    Procedure description:  1. Validate tokenId and email are valid strings
+                            2. Validate user exists
+                            3. Validate token is valid
+                            4. Validates if shoppingCard has an item list
+                            5. Validate payment with 'Stripe'
+                            6. Create order object
+                            7. Send email with order's details
+                            8. Stores order object
+
+
+### Path and Required Data 
 Will create an order with the items on cart    
       
-| Path    | Parameters | Headers                    | e.g.                        |
-| ---     | ---        | ---                        | ---                         |
-| /orders | None       | tokenId **`(required)`** | http://localhos:3000/orders |
+| Path                                  | Parameters | Headers                    | e.g.                        |
+| ---                                   | ---        | ---                        | ---                         |
+| /purchaseOrders?email=valid@email.com | None       | tokenId **`(required)`** | http://localhos:3000/purchaseOrders?email=somevalid@email.com |
    
    
 ### order-post-Response   
 
 ```javascript
 {
-    statusCode: 200,
-    message: 'Order created',
+    statusCode: 201,
+    message: 'Order created successfully',
     data: {
        id,
+       shoppingCartId,
        items,
-       iat,
-       price,
-       paymentProcessed
+       total,
+       paymentMethod,
+       currency,
+       authorization,
+       authorizationDate,
+       country,
+       object,
+       last4
     }
 }
 ```
 
 ### order-post-Errors    
    
-| Error | Parameters                                   |
-| ---   | ---                                          |
-| 400   | Required fields missing or they were invalid |
-| 400   | Payment not processed                        |
-| 400   | No items on cart to place an order           |
-| 400   | Order already exists                         |
-| 500   | Insufficient permissions                     |
+| Error | Parameters                                                                |
+| ---   | ---                                                                       |
+| 403   | Permission denied... insufficiend permissions                             |
+| 404   | No data available. Order id could not be generated                        |
+| 404   | No data available. FileName does not exist                                |
+| 412   | Invalid argument. MMissing or invalid required fields                     |
+| 412   | Invalid argument. An invalid string value was sent as dirName or fileName |
+| 412   | Invalid argument. Provided values are invalid (directory/file)            |
+| 428   | Timer expired. Token expired                                              |   
+| 451   | File or directory already exists.  Filename already exists, use update to modify values |
 
 ---  
       
 ## order-GET
 **(Retrieve information)**
-If the cart exists, then returns all information associated with cart.  Otherwise, returns an error message.
+### General Information
+    Required data: headers → token
+                   queryStringObject → email
+    Optional data: None
+    Procedure description:  1. Validate tokenId and email are valid strings
+                            2. Validate user exists
+                            3. Validate token is valid
+                            4. Read and Validate Purchase Order
+> If the cart exists, then returns all information associated with cart.  Otherwise, returns an error message.
 
-| Path    | Parameters          | Headers                  | e.g.                                    |
-| ---     | ---                 | ---                      | ---                                     |
-| /orders | id **`(required)`** | tokenId **`(required)`** | http://localhost:3000/orders/id=orderId |
+### Path and Required Data 
+
+
+| Path                                  | Parameters             | Headers                  | e.g.                                    |
+| ---                                   | ---                    | ---                      | ---                                     |
+| /purchaseOrders?email=valid@email.com | email **`(required)`** | tokenId **`(required)`** | http://localhost:3000/purchaseOrders/email=somevalid@email.com |
    
    
 ### order-get-Response   
@@ -306,25 +341,33 @@ If the cart exists, then returns all information associated with cart.  Otherwis
 ```javascript
 {
     statusCode: 200,
-    message: 'Order fetched correctly',
+    message: 'Order fetched successfully',
     data: {
        id,
+       shoppingCartId,
        items,
-       iat,
-       price,
-       paymentProcessed
+       total,
+       paymentMethod,
+       currency,
+       authorization,
+       authorizationDate,
+       country,
+       object,
+       last4
     }
 }
 ```   
 
 ### order-get-Errors    
       
-| Error | Parameters                                   |
-| ---   | ---                                          |
-| 400   | Required fields missing or they were invalid |
-| 403   | Unauthorized access                          |
-| 404   | Order not found                              |
-| 500   | Insufficient permissions                     |
+| Error | Parameters                                                    |
+| ---   | ---                                                           |
+| 403   | Permission denied... indufficient permissions                 |
+| 404   | No data availalbe. Filename does not exist                    |
+| 412   | Ivalid argument. Missing or invalid required fields           |
+| 412   | Ivalid argument. Missing or invalid required fields.  Required fields missing or they were invalid |
+| 412   | Ivalid argument. Provided values are invalid (directory/file) |
+| 428   | Timer expired. Token expired                                  |
 
 ---   
 
