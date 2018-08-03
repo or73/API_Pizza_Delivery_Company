@@ -25,8 +25,8 @@ config.stripe       = {
 
 
 config.mailgun      = {
-	apiKey  : 'key-ebf57d774c68281db08ac0619bb4e6b5',
-	domain  : 'sandbox6aa929989dab4b048c7157ab9bf491f2.mailgun.org',
+	apiKey  : 'This key can not be shared, use your own key',
+	domain  : 'This data can not be shared, use your own domain',
 };
 
 
