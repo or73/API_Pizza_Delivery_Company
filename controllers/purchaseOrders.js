@@ -4,16 +4,13 @@
 //
 //
 // // Dependencies
-const apiKey            = 'This key can not be shared, use your own key'
-const domain            = 'sandbox6aa929989dab4b048c7157ab9bf491f2.mailgun.org';
-
 const https         = require( 'https' );
 const queryString   = require( 'querystring' );
 
 
 const config        = require( '../config/config' );
-// const apiKey        = config.mailgun.apiKey;
-// const domain        = config.mailgun.domain;
+const apiKey        = config.mailgun.apiKey;
+const domain        = config.mailgun.domain;
 
 const {
 	createHash,
