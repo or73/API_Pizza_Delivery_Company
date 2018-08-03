@@ -55,13 +55,10 @@ const _dataService   = ( entityName ) => {
 			
 			// Validate if fileName path already exist, if not then it is created
 			const filePathExist = pathExists.sync( `${ filePath }` );
-			console.log( `[ data._create ] - filePathExist ${ filePathExist }` );
 			if ( !filePathExist ) {
-				console.log( `[ data._create ] - filePathExist - path does not exists: ${ filePathExist }` );
 				outputFileSync( filePath, data, 'utf-8' );
 				return responseTemplate( 200, `${ entityName } - ${ fileName } has been created [ data._create ]`, data );
 			} else {
-				console.log( `[ data._create ] - filePathExist - path already exists: ${ filePathExist }` );
 				return errorTemplate( 'EEXIST', `${ fileName } already exists, use update to modify values [ data._create ]` );
 			}
 		} else {
@@ -85,15 +82,12 @@ const _dataService   = ( entityName ) => {
 			
 			// Validate if file exists
 			const fileExist = pathExists.sync( filePath );
-			console.log( '[ data._read ] - fileExist:', fileExist );
-			console.log( '[ data._read ] - filePath:', filePath );
 			if ( fileExist ) {
 				// If exists read info
 				const fileDesc  = fs.openSync( filePath, 'r');
 				if ( fileDesc ) {
 					const fileData  = fs.readFileSync( fileDesc, 'utf8' );
 					if ( fileData ) {
-						console.log( '[ data._read ] - fileData: ', fileData );
 						fs.closeSync( fileDesc );
 						return responseTemplate( 200, 'File fetched successfully', fileData );
 					} else {
@@ -214,11 +208,9 @@ const _dataService   = ( entityName ) => {
 	*  Optional data: none
 	* */
 	let _itemList = ( fileName ) => {
-		const dirN  = validateString( entityName ) &&  validateValueInArray( entityName, _validEntities ) ? entityName : false;
 		const fileN = validateString( fileName ) ? fileName : false;
 		
-		const shoppingCardMsg   = this._read( dirN, fileN );
-		console.log( '[ data._itemList ] - shoppingCardMsg: ', shoppingCardMsg );
+		const shoppingCardMsg   = _read( fileN );
 		if ( validateStatusCodeOk( shoppingCardMsg ) ) {
 			const shoppingCartData  = shoppingCardMsg.data;
 			const shoppingCartObj   = parseJsonToObject( shoppingCartData );
@@ -227,7 +219,6 @@ const _dataService   = ( entityName ) => {
 				items   : parseObjectToJson( shoppingCartObj.items ),
 				total   : parseJsonToObject( shoppingCartObj.total ),
 			};
-			console.log( '[ data._itemList ] - itemsList: ', itemsListObj );
 			return responseTemplate( 200, 'Item list fetched successfully',  itemsListObj );
 		} else {
 			shoppingCardMsg.message += ' [ data._itemList ]';
@@ -263,12 +254,5 @@ const _dataService   = ( entityName ) => {
 	
 	return { _create, _read, _update, _delete, _contentOfAllFiles, _itemList, _namesOfAllFiles };
 };
-
-// const _usersService  = _dataService( 'users' );
-// _usersService._create( 'xxx@gmail.com', { name: "xxxs", address: "Chunugua xxx", password: "pwdxxx" } );
-// _usersService._read( 'xxx@gmail.com' );
-// _usersService._update( 'xxx@gmail.com', { name: 'oreyesc', address:'Chunugua', password:'newpwd' } );
-// _usersService._delete( 'xxx@gmail.com' );
-
 
 module.exports  = _dataService;

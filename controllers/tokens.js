@@ -37,11 +37,9 @@ const tokenPost =  data => {
 			const userData  = parseJsonToObject(userService._read( emailReq ).data);
 			const email     = userData.email;
 			const password  = createHash( userData.password );
-			console.log('1 [ token.tokenPost ]');
 			if ( email === emailReq && password === passwordReq ) {
 				// If valid, create a new token with a random name.  Set expiration date 1 hour in the future
 				const tokenId = createRandomString(20);
-				console.log('2 [ token.tokenPost ]');
 				if ( tokenId ) {
 					const expires = Date.now() + 1000 * 60 * 60 * 24;    // 1000 * 60 = 1 sec   (1000 * 60) * 60 1 hour   (1000 * 60) * 60 * 24 = 1 day
 					const tokenObj = {
@@ -49,14 +47,10 @@ const tokenPost =  data => {
 						email,
 						expires,
 					};
-					console.log('3 [ token.tokenPost ]');
 					const tokenServCreateMsg = tokenService._create( tokenId, parseObjectToJson( tokenObj ) );
 					if (validateStatusCodeOk(tokenServCreateMsg)) {
-						console.log('4 [ token.tokenPost ]');
-						console.log('tokenObj: ', tokenObj );
 						return responseTemplate(200, 'User logged in', tokenObj);
 					} else {
-						console.log('5 [ token.tokenPost ]');
 						return errorTemplate('ENODATA', 'Token was not created [ token.tokenPost]');
 					}
 				} else {
@@ -91,14 +85,12 @@ const tokenPost =  data => {
 * Get a list of existing tokens   http://localhost:3000/tokens?all
 * */
 const tokenGet  = data => {
-	console.log( '[ tokens.tokenGet ] - .data: ', data );
 	const queryStringObject = data.queryStringObject;
 	const token   = ( validateString( queryStringObject.id ) && queryStringObject.id.length === 20 ) ? queryStringObject.id : false;
 	const all   =  ( typeof queryStringObject.all === 'string' && queryStringObject.all.length === 0 );
 	
 	if ( token ) {
 		const tokenServReadMsg  = tokenService._read( token );
-		console.log( '[ tokens.tokenGet ] - tokenServMsg: ', tokenServReadMsg );
 		if ( validateStatusCodeOk( tokenServReadMsg ) ) {
 			const tokenData = parseJsonToObject(tokenServReadMsg.data);
 			return responseTemplate(200, 'Token fetched successfully', tokenData);

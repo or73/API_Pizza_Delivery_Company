@@ -42,45 +42,35 @@ const userPost  = data => {
 	const name      = validateString( payload.name ) ? payload.name : false;
 	
 	if ( email && address && password && name ) {
-		// try {
-			const userServMsg   = userService._read( email );
-			console.log( '[ users.userPost ] - userServMsg: ', userServMsg );
-			if ( !validateStatusCodeOk( userServMsg ) ) {
-				const tokenId   = createRandomString( 20 );
-				console.log( '[ users.userPost ] - tokenId: ', tokenId );
-				if ( tokenId ) {
-					const userData = {email, address, name, password, shoppingCartId: false, ordersBckp: []};
-					const expires = Date.now() + 1000 * 60 * 60 * 24;
-					// 1000 * 60 = 1 sec   (1000 * 60) * 60 1 hour   (1000 * 60) * 60 * 24 = 1 day
-					const tokenObj = {tokenId, email, expires,};
-					
-					const userServCreateMsg = userService._create( email, parseObjectToJson( userData ) );
-					console.log( '[ users.userPost ] - userServCreateMsg: ', userServCreateMsg );
-					if (validateStatusCodeOk(userServCreateMsg)) {
-						const tokenServCreateMsg = tokenService._create( tokenId, parseObjectToJson( tokenObj ) );
-						console.log( '[ users.userPost ] - tokenServCreateMsg: ', tokenServCreateMsg );
-						if (validateStatusCodeOk(tokenServCreateMsg)) {
-							delete userData.password;
-							return responseTemplate(200, 'User created successfully', userData );
-						} else {
-							tokenServCreateMsg.message += '[ users.userPost ]';
-							return tokenServCreateMsg;
-						}
+		
+		const userServMsg   = userService._read( email );
+		if ( !validateStatusCodeOk( userServMsg ) ) {
+			const tokenId   = createRandomString( 20 );
+			if ( tokenId ) {
+				const userData = {email, address, name, password, shoppingCartId: false, ordersBckp: []};
+				const expires = Date.now() + 1000 * 60 * 60 * 24;
+				// 1000 * 60 = 1 sec   (1000 * 60) * 60 1 hour   (1000 * 60) * 60 * 24 = 1 day
+				const tokenObj = {tokenId, email, expires,};
+				const userServCreateMsg = userService._create( email, parseObjectToJson( userData ) );
+				if (validateStatusCodeOk(userServCreateMsg)) {
+					const tokenServCreateMsg = tokenService._create( tokenId, parseObjectToJson( tokenObj ) );
+					if (validateStatusCodeOk(tokenServCreateMsg)) {
+						delete userData.password;
 					} else {
-						userServCreateMsg.message += '[ users.userPost ]';
-						return userServCreateMsg;
+						tokenServCreateMsg.message += '[ users.userPost ]';
+						return tokenServCreateMsg;
 					}
 				} else {
-					return errorTemplate( 'Bad Request', 'Token was not created', 400 );
+					userServCreateMsg.message += '[ users.userPost ]';
+					return userServCreateMsg;
 				}
 			} else {
-				userServMsg.message += '[ user.userPost ]';
-				return userServMsg; // errorTemplate( 'EEXIST' );
+				return errorTemplate( 'Bad Request', 'Token was not created', 400 );
 			}
-		// } catch (e) {
-		// 	console.log( `Error message: ${ e.code }: ${ e.message } [ users.usersPost ]`);
-		// 	return errorTemplate( e.code,  e.message + ' [ users.userPost ]' );
-		// }
+		} else {
+			userServMsg.message += '[ user.userPost ]';
+			return userServMsg; // errorTemplate( 'EEXIST' );
+		}
 	} else {
 		return errorTemplate( 'EINVAL', 'Required fields missing or invalid' );
 	}

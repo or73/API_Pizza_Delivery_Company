@@ -339,8 +339,6 @@ const shoppingCartDelete  = data => {
 					let positionsArray  = [];
 					let counter         = 0;
 					let itemsDeleted    = 0;
-					// let itemsDeleteNames= arrayElements( items );
-					// console.log( '[ shoppingCart.shoppingCartDelete ] - ( forEach ) itemsDeleteNames: ', itemsDeleteNames );
 					
 					// go through array of items of shopping cart
 					shoppingCartItems.forEach( itemShoppingCart => {
